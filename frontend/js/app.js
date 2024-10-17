@@ -53,7 +53,7 @@ function displayBooks(books) {
             }
 
             const img = new Image();
-            img.src = imageUrls[urlIndex] || ''; 
+            img.src = imageUrls[urlIndex] || '';
 
             return new Promise((resolve) => {
                 img.onload = () => {
@@ -65,7 +65,7 @@ function displayBooks(books) {
                 };
 
                 img.onerror = () => {
-                    resolve(checkImageSize(urlIndex + 1)); 
+                    resolve(checkImageSize(urlIndex + 1));
                 };
             });
         };
@@ -77,14 +77,14 @@ function displayBooks(books) {
             imgElement.alt = book.book_title;
 
             bookElement.innerHTML = `
-                <div class="book-info">
+            <div class="book-info">
                 <h3>${book.book_title}</h3>
-                <p>Autor: ${book.book_author}</p>
-                <p>Año: ${book.year_of_publication}</p>
-                <p>Editorial: ${book.publisher}</p>
-                </div>
+                <p><span class="label">Author:</span> ${book.book_author}</p>
+                <p><span class="label">Year of Publication:</span> ${book.year_of_publication}</p>
+                <p><span class="label">Editorial:</span> ${book.publisher}</p>
+                <p><span class="label">Rating:</span> ${book.promedio_rating}</p>
+            </div>
             `;
-
             bookElement.insertBefore(imgElement, bookElement.firstChild);
             bookGrid.appendChild(bookElement);
         });

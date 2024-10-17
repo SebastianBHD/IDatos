@@ -34,8 +34,7 @@ app.get('/api/books', (req, res) => {
 
 app.get('/api/books/search', (req, res) => {
     const searchTerm = req.query.search || '';
-    console.log('Término:', searchTerm); 
-    const query = `SELECT * FROM bookstable1 WHERE book_title LIKE ?`; 
+    const query = `SELECT * FROM tabla_final WHERE book_title LIKE ?`; 
 
     conexion.query(query, [`%${searchTerm}%`], function(error, results) {
         if (error) {

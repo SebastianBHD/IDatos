@@ -1,3 +1,32 @@
+
+.grid-container {
+    --sb-track-color: #e6e6e6;
+    --sb-thumb-color: #a09c9c;
+    --sb-size: 12px;
+}
+
+.grid-container::-webkit-scrollbar {
+    width: var(--sb-size);
+}
+
+.grid-container::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 6px;
+}
+
+.grid-container::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 6px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    .grid-container {
+      scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
+}
+
+
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -85,7 +114,7 @@ button:hover {
 
 .book-card {
     display: grid;
-    width: 300px;
+    width: 350px;
     height: 500px;
     padding: 30px;
     border-radius: 10px;
@@ -94,6 +123,25 @@ button:hover {
     border-style: solid;
     justify-items: center;
     background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-info h3 {
+    width: 320px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.book-info p {
+   font-size: 15px;
+
 }
 
 .book-card img {

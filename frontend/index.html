@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Search</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div style="display: flex; gap:20px; align-items: center; ">
+            <img src="../public/logo.png" alt="logo">
+            <h1>Book Search</h1>
+        </div>
+        <div class="inputclass">
+            <input type="text" style="width: 100%" id="searchBar" placeholder="Buscar por nombre">
+            <button id="llamarBack" onclick="loadFilterBooks()">Search</button>
+        </div>
+    </header>
+    <div class="principal">
+        <div class="filters">
+            <h1>Filter By</h1>
+            <h4>Author</h4>
+            <input type="text" id="authorFilter" placeholder="Filtrar por autor">
+            <h4>Genre</h4>
+            <select id="genreFilter" aria-placeholder="Select a genre" onchange="filterBooks()">
+                <option value="" disabled selected style="color: rgba(0, 0, 0, 0.4);">Select a genre</option>
+                <option value="ficcion">Fiction</option>
+                <option value="no-ficcion">Fantasy</option>
+                <option value="fantasia">Action</option>
+                <option value="ciencia-ficcion">Terror</option>
+                <option value="biografia">Adventure</option>
+            </select>
+            <h4>Year Since</h4>
+            <input type="text" id="dateFilter" placeholder="Start Date">
+            <h4>Year To</h4>
+            <input type="text" id="dateFilter" placeholder="End Date">
+            <h4>Rating From</h4>
+            <input type="text" id="dateFilter" placeholder="Start Value">
+            <h4>Rating To</h4>
+            <input type="text" id="dateFilter" placeholder="End Value">
+            <button id="llamarBack" style="margin-top: 30px;" onclick="loadFilterBooks()">Search</button>
+        </div>
+        <div id="bookGrid" class="grid-container"></div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

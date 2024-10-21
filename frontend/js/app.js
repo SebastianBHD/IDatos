@@ -1,5 +1,3 @@
-allBooks = [];
-
 
 function loadBooks() {
     fetch('http://localhost:3000/api/books')
@@ -17,9 +15,12 @@ function loadBooks() {
         });
 }
 
-function filterBooks() {
+
+function searchBooks() {
     const searchTerm = document.getElementById('searchBar').value;
-    console.log('Término de búsqueda:', searchTerm);
+    const bookGrid = document.getElementById('bookGrid');
+    bookGrid.innerHTML = '';
+
     fetch(`http://localhost:3000/api/books/search?search=${searchTerm}`)
         .then(response => {
             if (!response.ok) {
@@ -28,14 +29,37 @@ function filterBooks() {
             return response.json();
         })
         .then(data => {
-            allBooks = data;
-            displayBooks(allBooks);
+            displayBooks(data);
         })
         .catch(error => {
             console.error('Error al obtener los datos:', error);
         });
 }
 
+function filterBooks() {
+    const authorTerm = document.getElementById('authorFilter').value;
+    const dateSinceTerm = document.getElementById('dateSince').value;
+    const dateToTerm = document.getElementById('dateTo').value;
+    const ratingFromTerm = document.getElementById('ratingFrom').value;
+    const ratingToTerm = document.getElementById('ratingTo').value;
+
+    const bookGrid = document.getElementById('bookGrid');
+    bookGrid.innerHTML = '';
+
+    fetch(`http://localhost:3000/api/books/filter?author=${authorTerm}&dateSince=${dateSinceTerm}&dateTo=${dateToTerm}&ratingFrom=${ratingFromTerm}&ratingTo=${ratingToTerm}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al obtener los datos');
+            }
+            return response.json();
+        })
+        .then(data => {
+            displayBooks(data);
+        })
+        .catch(error => {
+            console.error('Error al obtener los datos:', error);
+        });
+}
 function displayBooks(books) {
     const bookGrid = document.getElementById('bookGrid');
     bookGrid.innerHTML = '';
@@ -95,6 +119,10 @@ function displayBooks(books) {
 function loadMoreBooks() {
     loadBooks();
 }
+function loadSearchBooks() {
+    searchBooks();
+}
+
 function loadFilterBooks() {
     filterBooks();
-}
+} 

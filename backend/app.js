@@ -23,7 +23,7 @@ conexion.connect(function(error) {
 });
 
 app.get('/api/books', (req, res) => {
-    conexion.query('SELECT * FROM bookstable1', function(error, results, fields) {
+    conexion.query('SELECT * FROM tabla_final_rating', function(error, results, fields) {
         if (error) {
             console.error('Error en la consulta: ', error);
             return res.status(500).json({ error: 'Error en la consulta' });
@@ -34,7 +34,7 @@ app.get('/api/books', (req, res) => {
 
 app.get('/api/books/search', (req, res) => {
     const searchTerm = req.query.search || '';
-    const query = `SELECT * FROM tabla_final WHERE book_title LIKE ?`; 
+    const query = `SELECT * FROM tabla_final_rating WHERE book_title LIKE ?`; 
 
     conexion.query(query, [`%${searchTerm}%`], function(error, results) {
         if (error) {
@@ -44,6 +44,53 @@ app.get('/api/books/search', (req, res) => {
         res.json(results);
     });
 });
+
+app.get('/api/books/filter', (req, res) => {
+    const authorTerm = req.query.author || '';
+    const dateSinceTerm = req.query.dateSince || null;
+    const dateToTerm = req.query.dateTo || null;
+    const ratingFromTerm = req.query.ratingFrom || -1;
+    const ratingToTerm = req.query.ratingTo || 11;
+
+    let query = `SELECT * FROM tabla_final_rating WHERE 1=1`;
+    let queryParams = [];
+
+    if (authorTerm != '') {
+        query += ` AND book_author LIKE ?`;
+        queryParams.push(`%${authorTerm}%`);
+    }
+
+    if (dateSinceTerm != null) {
+        query += ` AND year_of_publication >= ?`;
+        queryParams.push(dateSinceTerm);
+    }
+
+    if (dateToTerm != null) {
+        query += ` AND year_of_publication <= ?`;
+        queryParams.push(dateToTerm);
+    }
+
+    if (ratingFromTerm) {
+        query += ` AND promedio_rating >= ?`;
+        queryParams.push(ratingFromTerm);
+    }
+
+    if (ratingToTerm) {
+        query += ` AND promedio_rating <= ?`;
+        queryParams.push(ratingToTerm);
+    }
+
+    query += ` LIMIT 200`;
+
+    conexion.query(query, queryParams, function(error, results) {
+        if (error) {
+            console.error('Error en la consulta: ', error);
+            return res.status(500).json({ error: 'Error en la consulta' });
+        }
+        res.json(results);
+    });
+});
+
 
 
 app.listen(PORT, () => {

@@ -16,7 +16,7 @@
         </div>
         <div class="inputclass">
             <input type="text" style="width: 100%" id="searchBar" placeholder="Buscar por nombre">
-            <button id="llamarBack" onclick="loadFilterBooks()">Search</button>
+            <button id="llamarBack" onclick="loadSearchBooks()">Search</button>
         </div>
     </header>
     <div class="principal">
@@ -34,13 +34,13 @@
                 <option value="biografia">Adventure</option>
             </select>
             <h4>Year Since</h4>
-            <input type="text" id="dateFilter" placeholder="Start Date">
+            <input type="text" id="dateSince" placeholder="Start Date">
             <h4>Year To</h4>
-            <input type="text" id="dateFilter" placeholder="End Date">
+            <input type="text" id="dateTo" placeholder="End Date">
             <h4>Rating From</h4>
-            <input type="text" id="dateFilter" placeholder="Start Value">
+            <input type="text" id="ratingFrom" placeholder="Start Value">
             <h4>Rating To</h4>
-            <input type="text" id="dateFilter" placeholder="End Value">
+            <input type="text" id="ratingTo" placeholder="End Value">
             <button id="llamarBack" style="margin-top: 30px;" onclick="loadFilterBooks()">Search</button>
         </div>
         <div id="bookGrid" class="grid-container"></div>

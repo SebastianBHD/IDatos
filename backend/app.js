@@ -23,7 +23,9 @@ conexion.connect(function(error) {
 });
 
 app.get('/api/books', (req, res) => {
-    conexion.query('SELECT * FROM tabla_final_rating', function(error, results, fields) {
+    const query = 'SELECT * FROM tabla_final_rating ORDER BY promedio_rating DESC LIMIT 300';
+    
+    conexion.query(query, function(error, results, fields) {
         if (error) {
             console.error('Error en la consulta: ', error);
             return res.status(500).json({ error: 'Error en la consulta' });
@@ -42,6 +44,7 @@ app.get('/api/books/search', (req, res) => {
             return res.status(500).json({ error: 'Error en la consulta' });
         }
         res.json(results);
+        console.log(results);
     });
 });
 

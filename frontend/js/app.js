@@ -8,7 +8,7 @@ function loadBooks() {
             return response.json();
         })
         .then(data => {
-            allBooks = data;
+            displayBooks(data);
         })
         .catch(error => {
             console.error('Error al obtener los datos:', error);
@@ -60,6 +60,7 @@ function filterBooks() {
             console.error('Error al obtener los datos:', error);
         });
 }
+
 function displayBooks(books) {
     const bookGrid = document.getElementById('bookGrid');
     bookGrid.innerHTML = '';
@@ -119,6 +120,7 @@ function displayBooks(books) {
 function loadMoreBooks() {
     loadBooks();
 }
+
 function loadSearchBooks() {
     searchBooks();
 }
